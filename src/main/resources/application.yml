@@ -1,0 +1,24 @@
+
+spring:
+  application:
+    name: ${EUREKA_APP_NAME}
+
+  output:
+    ansi:
+      enabled: ALWAYS
+
+
+server:
+  port: ${EUREKA_SERVER_PORT}
+
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
