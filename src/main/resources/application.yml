@@ -1,0 +1,13 @@
+
+
+spring:
+  application:
+    name: ${WEBSOCKET_APP_NAME}
+
+  output:
+    ansi:
+      enabled: ALWAYS
+
+  config:
+    import: optional:configserver:${CONFIG_SERVER_URL}
+
