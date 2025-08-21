@@ -1,0 +1,234 @@
+# ----------------------
+# OS / Editor Junk
+# ----------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+.nfs*
+
+# ----------------------
+# Logs, Secrets, Temp
+# ----------------------
+*.log
+*.tmp
+*.bak
+*.old
+*.orig
+*.swp
+*.swo
+*.rej
+*.swn
+*.sublime-workspace
+*.sublime-project
+*.secret
+.env
+.env.*
+!.env.example
+
+# ----------------------
+# Java / Spring Boot / Maven
+# ----------------------
+target/
+**/target/
+out/
+*.class
+*.jar
+*.war
+*.ear
+
+# Maven wrapper - keep required files only
+.mvn/
+!.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.properties
+
+# Gradle (if used)
+.gradle/
+build/
+**/build/
+!gradle-wrapper.jar
+
+# ----------------------
+# Python
+# ----------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+pip-wheel-metadata/
+venv/
+.venv/
+ENV/
+env/
+*.spec
+.coverage
+coverage.xml
+htmlcov/
+.mypy_cache/
+.pytest_cache/
+.tox/
+.dmypy.json
+.pyre/
+
+# ----------------------
+# Flutter / Dart
+# ----------------------
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+coverage/
+android/.gradle/
+ios/Flutter/Generated.xcconfig
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+macos/Flutter/ephemeral/
+linux/flutter/ephemeral/
+windows/flutter/ephemeral/
+
+# ----------------------
+# Node.js / JS / TS (if any)
+# ----------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log
+dist/
+build/
+.cache/
+.next/
+out/
+*.tsbuildinfo
+
+# ----------------------
+# VS Code
+# ----------------------
+.vscode/
+.code-workspace
+.history/
+
+# ----------------------
+# IntelliJ / JetBrains IDEs
+# ----------------------
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# ----------------------
+# Android Studio
+# ----------------------
+*.apk
+*.ap_
+*.dex
+*.class
+*.cxx/
+.idea/
+.gradle/
+local.properties
+*.log
+captures/
+.externalNativeBuild/
+.cxx/
+*.keystore
+*.jks
+
+# ----------------------
+# macOS
+# ----------------------
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+
+# ----------------------
+# Windows
+# ----------------------
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# ----------------------
+# Linux
+# ----------------------
+*~ 
+.nfs*
+
+# ----------------------
+# Test/Code Coverage
+# ----------------------
+coverage/
+lcov-report/
+htmlcov/
+jacoco.exec
+test-output/
+nosetests.xml
+pytest.xml
+test-results/
+surefire-reports/
+
+# ----------------------
+# Backup / Sync
+# ----------------------
+*.bak
+*.tmp
+*.temp
+*.orig
+*.rej
+*.sublime-workspace
+*.sublime-project
+*.gz
+*.zip
+*.tar
+*.rar
+
+# ----------------------
+# Docker
+# ----------------------
+.docker/
+docker-compose.override.yml
+docker-compose.dev.yml
+docker-compose.test.yml
+
+# ----------------------
+# Git-specific
+# ----------------------
+.git/
+.gitignore
+.gitattributes
+.gitattributes.lock
+.gitattributes.backup
+
+# ----------------------
+# CI/CD / Build Tools
+# ----------------------
+build/
+logs/
+tmp/
+.cache/
+.gradle/
+.pipeline/
