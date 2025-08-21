@@ -1,0 +1,12 @@
+
+
+spring:
+  application:
+    name: ${AUTH_APP_NAME}
+
+  config:
+    import: optional:configserver:${CONFIG_SERVER_URL}
+
+  output:
+    ansi:
+      enabled: ALWAYS
