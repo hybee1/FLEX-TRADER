@@ -1,0 +1,96 @@
+
+spring:
+  cloud:
+    gateway:
+
+      httpclient:
+        connect-timeout: 2000  # 2 seconds
+        response-timeout: 5s
+        pool:
+          max-connections: 100
+          max-idle-time: 20s
+          eviction-interval: 30s
+          wiretap: false
+
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+#    loadbalancer:
+#      retry:
+#        enabled: true
+#      ribbon:
+#        enabled: false
+#      cache:
+#        enabled: false
+
+      routes:
+        # receive predicate from client, add prefix-path in front of predicate, then send to uri
+        # Route for authentication/login, authentication/register, etc.
+        - id: flex-trader-login-and-register
+          uri: lb://${AUTH_APP_NAME}  # destination service (auth-backend)
+          predicates:
+            - Path=/authentication/**
+          filters:
+            - PrefixPath=/api
+
+#            - name: CircuitBreaker
+#              args:
+#                name: authCircuitBreaker
+#                fallbackUri: forward:/auth-fallback
+#
+#            - name: Retry
+#              args:
+#                retries: 3
+#                statuses: BAD_GATEWAY, GATEWAY_TIMEOUT, SERVICE_UNAVAILABLE
+#                methods: GET, POST
+
+        #--------------------------------------------------------------------------------------------------
+        - id: connect-websocket  # WEBSOCKET
+          uri: lb://${WEBSOCKET_APP_NAME}  # destination service (websocket-service)
+          predicates:
+            - Path=/websocket
+
+        - id: websocket-route  # WEBSOCKET
+          uri: lb://${WEBSOCKET_APP_NAME}  # destination service (websocket-service)
+          predicates:
+            - Path=/to-server
+
+        - id: connect-reactive-websocket  # REACTIVE WEBSOCKET
+          uri: lb:ws://${REACTIVE_WEBSOCKET_APP_NAME}  # destination service (reactive-websocket-service)
+          predicates:
+            - Path=/ws/trade
+          filters:
+            - PreserveHostHeader
+#            - AddRequestHeader=Authorization, "#{request.headers.Authorization}"
+
+
+  main:
+    allow-bean-definition-overriding: true
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      authCircuitBreaker:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 5s
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-exception: true
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client.HttpClient: DEBUG

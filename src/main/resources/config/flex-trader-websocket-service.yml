@@ -1,0 +1,60 @@
+server:
+  port: ${WEBSOCKET_SERVER_PORT}
+  address: 0.0.0.0
+
+logging:
+  level:
+    org:
+      hibernate: TRACE
+      springframework: TRACE
+
+spring:
+
+  liquibase:
+      enabled=false:
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST_NAME}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+    virtual-host: ${RABBITMQ_VIRTUAL_HOST}
+    listener:
+      simple:
+        concurrency: ${RABBITMQ_CONCURRENCY}
+        max-concurrency: ${RABBITMQ_MAX_CONCURRENCY}
+        acknowledge-mode: ${RABBITMQ_ACKNOWLEDGE_MODE}
+    publisher-confirm-type: ${RABBITMQ_PUBLISHER_CONFIRM_TYPE}
+    publisher-returns: ${RABBITMQ_PUBLISHER_RETURNS}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${random.int}
+    lease-renewal-interval-in-seconds: 20
+    lease-expiration-duration-in-seconds: 60
+
+  client:
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: ${EUREKA_URL}  # URL of your Eureka server
+    registerWithEureka: true
+    fetchRegistry: true
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
+  endpoint:
+    health:
+      show-details: always
+
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+
+

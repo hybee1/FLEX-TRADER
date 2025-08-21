@@ -1,0 +1,25 @@
+
+server:
+  port: ${CONFIG_SERVER_PORT}
+
+spring:
+  application:
+    name: ${CONFIG_SERVER_NAME}
+
+  output:
+    ansi:
+      enabled: ALWAYS
+
+  profiles:
+    active: native
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${random.int}
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL}  # URL of your Eureka server
+    registerWithEureka: true
+    fetchRegistry: true
+

@@ -1,0 +1,63 @@
+server:
+  port: ${AUTH_SERVER_PORT}
+
+logging:
+  level:
+    org:
+      hibernate: TRACE
+      springframework: TRACE
+
+spring:
+
+  liquibase:
+    enabled: false
+
+  datasource:
+    url: ${AUTH_DB_URL}
+    username: ${AUTH_DB_USERNAME}
+    password: ${AUTH_DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update  # Options: create, create-drop, validate, update
+    show-sql: true  # Optional: shows SQL queries in the log
+    generate-ddl: true  # Optional: generates DDL scripts automatically
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${random.int}
+    lease-renewal-interval-in-seconds: 20
+    lease-expiration-duration-in-seconds: 60
+
+  client:
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: ${EUREKA_URL}  # URL of your Eureka server
+    registerWithEureka: true
+    fetchRegistry: true
+    registry-fetch-interval-seconds: 5
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
+  endpoint:
+    health:
+      show-details: always
+
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+
+
