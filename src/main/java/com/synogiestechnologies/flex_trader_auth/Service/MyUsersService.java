@@ -3,7 +3,6 @@ package com.synogiestechnologies.flex_trader_auth.Service;
 import com.synogiestechnologies.flex_trader_auth.AllEnums.Role;
 import com.synogiestechnologies.flex_trader_auth.DTORequest.CreateUserRequest;
 import com.synogiestechnologies.flex_trader_auth.Exceptions.*;
-import com.synogiestechnologies.flex_trader_auth.Jwt.JwtService;
 import com.synogiestechnologies.flex_trader_auth.Models.MyUsers;
 import com.synogiestechnologies.flex_trader_auth.Models.Subscription;
 import com.synogiestechnologies.flex_trader_auth.Repository.MyUsersRepo;
@@ -127,7 +126,7 @@ public class MyUsersService {
 
         // user already exist
         Tuple result = myUsersRepo.findUsernameAndEmailMatchCounts(
-                newUserRequest.getUsername());
+                newUserRequest.getUsername(), newUserRequest.getEmail());
 
         Long usernameCount = result.get("usernameMatch", Long.class);
         Long emailCount = result.get("emailMatch", Long.class);
@@ -169,25 +168,32 @@ public class MyUsersService {
                 .password(newUserRequest.getPassword())
                 .build();
 
-        // Authenticate user to generate token
-        ResponseEntity<Map<String, Object>> loginData = verifyUser(loginRequest);
+        try {
+            // Authenticate user to generate token
+            ResponseEntity<Map<String, Object>> loginData = verifyUser(loginRequest);
 
-        if (loginData.getStatusCode() == HttpStatus.OK) {
+            if (loginData.getStatusCode() == HttpStatus.OK && loginData.getBody() != null) {
+                Object dataObj = loginData.getBody().get("data");
+                if (dataObj instanceof Map<?, ?> data) {
+                    String token = (String) data.get("token");
+                    if (token != null) {
+                        return ResponseEntity.ok(Map.of("data", Map.of("token", token)));
+                    }
+                }
+            }
 
-            Map<String, Object> dataBody = loginData.getBody();
-            Map<String, String> data = (Map<String, String>) dataBody.get("data");
+            log.error("Login verification failed after creating user {}", newUserRequest.getUsername());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("errorMessage", "Unable to auto-login newly created user"));
 
-            String token = data.get("token");
-
-            Map<String, String> resultMap = Map.of("token", token);
-            return ResponseEntity.ok(Map.of("data", resultMap));
+        } catch (Exception e) {
+            log.error("Error verifying user {} after creation: {}",
+                    newUserRequest.getUsername(), e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("errorMessage", "User creation rolled back because login " +
+                            "attempt failed. Please try again later."));
         }
 
-        // Handle failure to generate token
-        log.error("Unable tto verify created user with it details, " +
-                "though user is not saved to DB");
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("errorMessage", "Something went wrong please try again later"));
     }
 
     public ResponseEntity<Map<String, Object>> isTokenRevoked( @NotEmpty String token) {

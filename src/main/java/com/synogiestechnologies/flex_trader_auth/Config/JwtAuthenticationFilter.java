@@ -3,7 +3,7 @@ package com.synogiestechnologies.flex_trader_auth.Config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.synogiestechnologies.flex_trader_auth.Exceptions.ExpiredTokenException;
-import com.synogiestechnologies.flex_trader_auth.Jwt.JwtService;
+import com.synogiestechnologies.flex_trader_auth.Service.JwtService;
 import com.synogiestechnologies.flex_trader_auth.Service.MyUsersDetailsService;
 import com.synogiestechnologies.flex_trader_auth.UserDetails.MyUsersDetails;
 import jakarta.servlet.FilterChain;

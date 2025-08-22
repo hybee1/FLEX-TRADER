@@ -1,4 +1,4 @@
-package com.synogiestechnologies.flex_trader_auth.Jwt;
+package com.synogiestechnologies.flex_trader_auth.Service;
 
 
 import com.synogiestechnologies.flex_trader_auth.DTORequest.LogOutRequest;
@@ -7,7 +7,6 @@ import com.synogiestechnologies.flex_trader_auth.Models.JwtToken;
 import com.synogiestechnologies.flex_trader_auth.Models.MyUsers;
 import com.synogiestechnologies.flex_trader_auth.Models.Subscription;
 import com.synogiestechnologies.flex_trader_auth.Repository.JwtTokenRepo;
-import com.synogiestechnologies.flex_trader_auth.Service.SubscriptionService;
 import com.synogiestechnologies.flex_trader_auth.UserDetails.MyUsersDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -310,9 +309,11 @@ public class JwtService {
         if (activeToken.isPresent()){
             jwtTokenRepo.deleteById(activeToken.get().getId());
             log.info("SUCCESSFULLY DELETED TOKEN IN deleteActiveTokenByUsername");
+            return true;
         }
 
-        return true;
+        log.info("user not found, no token to delete");
+        throw new TokenNotFoundException("user not found, no token to delete", HttpStatus.NOT_FOUND);
 
     }
 

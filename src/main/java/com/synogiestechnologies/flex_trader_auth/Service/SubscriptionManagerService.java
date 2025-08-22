@@ -5,7 +5,6 @@ import com.synogiestechnologies.flex_trader_auth.AllEnums.SubscriptionPlanType;
 import com.synogiestechnologies.flex_trader_auth.Exceptions.InvalidTokenException;
 import com.synogiestechnologies.flex_trader_auth.Exceptions.NoUserFoundException;
 import com.synogiestechnologies.flex_trader_auth.Exceptions.SubscriptionException;
-import com.synogiestechnologies.flex_trader_auth.Jwt.JwtService;
 import com.synogiestechnologies.flex_trader_auth.Models.MyUsers;
 import com.synogiestechnologies.flex_trader_auth.Models.Subscription;
 import com.synogiestechnologies.flex_trader_auth.Repository.MyUsersRepo;

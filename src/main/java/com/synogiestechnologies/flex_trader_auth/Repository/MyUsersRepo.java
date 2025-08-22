@@ -35,11 +35,12 @@ public interface MyUsersRepo extends JpaRepository<MyUsers, Long> {
 
         @Query("""
                   SELECT
-                  COUNT(CASE WHEN LOWER(m.username) = LOWER(:keyword) THEN 1 END) as usernameMatch,
-                  COUNT(CASE WHEN LOWER(m.email) = LOWER(:keyword) THEN 1 END) as emailMatch
+                  COUNT(CASE WHEN LOWER(m.username) = LOWER(:username) THEN 1 END) as usernameMatch,
+                  COUNT(CASE WHEN LOWER(m.email) = LOWER(:email) THEN 1 END) as emailMatch
                   FROM MyUsers m
             """)
-        Tuple findUsernameAndEmailMatchCounts(@Param("keyword") String keyword);
+        Tuple findUsernameAndEmailMatchCounts(@Param("username") String username,
+                                              @Param("email") String email);
 
 }
 

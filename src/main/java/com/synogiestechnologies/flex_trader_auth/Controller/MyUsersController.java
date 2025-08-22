@@ -2,7 +2,7 @@ package com.synogiestechnologies.flex_trader_auth.Controller;
 
 import com.synogiestechnologies.flex_trader_auth.DTORequest.*;
 import com.synogiestechnologies.flex_trader_auth.Exceptions.InvalidTokenException;
-import com.synogiestechnologies.flex_trader_auth.Jwt.JwtService;
+import com.synogiestechnologies.flex_trader_auth.Service.JwtService;
 import com.synogiestechnologies.flex_trader_auth.Service.MyUsersService;
 import com.synogiestechnologies.flex_trader_auth.Service.SubscriptionService;
 import jakarta.servlet.http.HttpServletRequest;
