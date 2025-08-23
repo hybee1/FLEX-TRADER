@@ -1,0 +1,19 @@
+
+jwt:
+  secret-key: 4720e2fdbc1f421d498ab2b181aafbcd31c58b8c49984a85b27d82969872ec14
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: test-api-gateway-service
+
+  # disable things that break tests
+  cloud:
+    config:
+      enabled: false
+    discovery:
+      enabled: false
+
+
