@@ -27,6 +27,9 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Clean previous build
+        run: mvn -B clean
+
       - name: Run tests
         run: mvn -B test --file pom.xml
 
